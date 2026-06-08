@@ -36,7 +36,7 @@ module BooksHelper
     if previous_leaf = leaf.previous
       path = for_edit ? edit_leafable_path(previous_leaf) : leafable_slug_path(previous_leaf)
       link_to path, data: hotkey_data_attributes("left", enabled: hotkey), class: "btn" do
-        image_tag("arrow-left.svg", aria: { hidden: true }, size: 24) + tag.span(I18n.t("books.navigation.previous", title: previous_leaf.title, default: "Previous: %{title}"), class: "for-screen-reader")
+        image_tag("arrow-left.svg", aria: { hidden: true }, size: 24) + tag.span(I18n.t("books.navigation.previous_html", title: previous_leaf.title, default: "<strong>Previous:</strong> %{title}"), class: "for-screen-reader")
       end
     else
       link_to book_slug_path(leaf.book), data: hotkey_data_attributes("left", enabled: hotkey), class: "btn" do
@@ -49,7 +49,7 @@ module BooksHelper
     if next_leaf = leaf.next
       path = for_edit ? edit_leafable_path(next_leaf) : leafable_slug_path(next_leaf)
       link_to path, data: hotkey_data_attributes("right", enabled: hotkey), class: "btn txt-medium min-width" do
-        tag.span(I18n.t("books.navigation.next", title: next_leaf.title, default: "Next: %{title}"), class: "overflow-ellipsis") + image_tag("arrow-right.svg", aria: { hidden: true }, size: 24)
+        tag.span(I18n.t("books.navigation.next_html", title: next_leaf.title, default: "<strong>Next:</strong> %{title}"), class: "overflow-ellipsis") + image_tag("arrow-right.svg", aria: { hidden: true }, size: 24)
       end
     else
       link_to book_slug_path(leaf.book), data: hotkey_data_attributes("right", enabled: hotkey), class: "btn txt-medium" do
