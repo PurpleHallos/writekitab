@@ -20,13 +20,53 @@
       data: { controller: "form", action: "keydown.ctrl+enter->form#submit keydown.meta+enter->form#submit" } do |form| %>
     <div class="pad-inline-double margin-inline">
       <div class="flex align-center gap-half center full-width justify-center">
+        <h2 class="margin-none"><%= t('admin.library_direction') %></h2>
+      </div>
+      <p class="txt-subtle txt-align-center margin-none-block-start"><%= t('admin.library_direction_hint') %></p>
+
+      <div class="flex gap justify-center margin-block">
+        <% Account::LIBRARY_DIRECTIONS.each do |dir| %>
+          <label class="btn <%= 'btn--reversed' if @account.library_direction == dir %>">
+            <%= form.radio_button :library_direction, dir,
+                id: "account_library_direction_#{dir}",
+                data: { action: "change->form#submit" } %>
+            <%= dir.upcase %>
+          </label>
+        <% end %>
+      </div>
+    </div>
+
+    <hr class="margin-block">
+
+    <div class="pad-inline-double margin-inline">
+      <div class="flex align-center gap-half center full-width justify-center">
+        <h2 class="margin-none"><%= t('admin.ui_language') %></h2>
+      </div>
+      <p class="txt-subtle txt-align-center margin-none-block-start"><%= t('admin.ui_language_hint') %></p>
+
+      <div class="flex gap justify-center margin-block">
+        <% Account::UI_LANGUAGES.each do |lang| %>
+          <label class="btn <%= 'btn--reversed' if @account.ui_language == lang %>">
+            <%= form.radio_button :ui_language, lang,
+                id: "account_ui_language_#{lang}",
+                data: { action: "change->form#submit" } %>
+            <%= t("admin.language_#{lang}") %>
+          </label>
+        <% end %>
+      </div>
+    </div>
+
+    <hr class="margin-block">
+
+    <div class="pad-inline-double margin-inline">
+      <div class="flex align-center gap-half center full-width justify-center">
         <span class="txt-medium"><%= translation_button(:custom_styles) %></span>
-        <h1 class="margin-none">Custom CSS</h1>
+        <h1 class="margin-none"><%= t('admin.custom_css') %></h1>
       </div>
       <p class="flex flex-wrap align-center justify-center gap margin-none-block-start" style="--column-gap: 0.5ch; --row-gap: 0">
-        <span>Add custom CSS styles.</span>
+        <span><%= t('admin.custom_css_hint') %></span>
         <%= image_tag "alert.svg", class: "flex-inline colorize--black", size: 16, aria: { hidden: "true" } %>
-        <span>Use Caution: you could break things.</span>
+        <span><%= t('admin.custom_css_warning') %></span>
       </p>
     </div>
 
@@ -38,7 +78,7 @@
 
     <%= form.button class: "btn btn--reversed center txt-large", type: "submit" do %>
       <%= image_tag "check.svg", aria: { hidden: "true" }, size: 20 %>
-      <span class="for-screen-reader">Save changes</span>
+      <span class="for-screen-reader"><%= t('admin.save_changes') %></span>
     <% end %>
   <% end %>
 </div>
