@@ -103,14 +103,7 @@
             document.body.appendChild(script);
           }
 
-          // Run on initial page load
-          if (document.readyState === "complete" || document.readyState === "interactive") {
-            loadBMCWidget();
-          } else {
-            document.addEventListener("DOMContentLoaded", loadBMCWidget);
-          }
-
-          // Run on every subsequent Turbo navigation
+          // Run exactly once on initial page load and every subsequent Turbo navigation
           document.addEventListener("turbo:load", loadBMCWidget);
         })();
       </script>
