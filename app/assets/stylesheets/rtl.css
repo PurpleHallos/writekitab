@@ -1,0 +1,32 @@
+/* RTL and Arabic script overrides
+ * Applied automatically when dir="rtl" is set on the <html> element.
+ * The bulk of the layout already uses CSS logical properties, so only
+ * script-specific typography and the few remaining physical properties
+ * need correcting here.
+ */
+
+:root:where([dir="rtl"]) {
+  /* Prefer Arabic-optimised system fonts first */
+  --font-sans: "Segoe UI", "Cairo", "Noto Sans Arabic", "Tahoma", system-ui, sans-serif;
+
+  /* Arabic script needs slightly more generous leading */
+  --line-height: 1.8;
+}
+
+/* Give the reading area correct text direction and alignment */
+[dir="rtl"] #main {
+  text-align: start;
+}
+
+
+/* Preserve code blocks as LTR (code is always LTR) */
+[dir="rtl"] :is(pre, code, .pre, .code) {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: isolate;
+}
+
+/* Flip directional arrows horizontally */
+[dir="rtl"] img[src*="arrow"] {
+  transform: scaleX(-1);
+}

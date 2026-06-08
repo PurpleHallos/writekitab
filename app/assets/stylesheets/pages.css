@@ -98,6 +98,13 @@
 
 :is(.page__body, .page--page) {
   text-align: start;
+
+  /* Each block element auto-detects its own direction from its first
+     strongly-directional character. This allows mixed Arabic/English
+     paragraphs in the same page without any manual configuration. */
+  :is(p, h1, h2, h3, h4, h5, h6, li, blockquote, figcaption, td, th) {
+    unicode-bidi: plaintext;
+  }
 }
 
 :is(.page--section, .page--picture) {

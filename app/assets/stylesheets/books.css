@@ -110,7 +110,8 @@
 }
 
 .book__cover--add {
-  inset: auto 50% calc(var(--block-space) * -1) auto;
+  inset-block: auto calc(var(--block-space) * -1);
+  inset-inline: auto 50%;
   margin-inline-end: calc(var(--btn-size) * -0.5);
   position: absolute;
   z-index: 1;
@@ -201,7 +202,8 @@
   --icon-size: 1.5em;
 
   display: block;
-  inset: var(--progress, 0) calc(var(--icon-size) / 4) auto calc(var(--icon-size) * -0.5);
+  inset-block: var(--progress, 0) auto;
+  inset-inline: calc(var(--icon-size) * -0.5) calc(var(--icon-size) / 4);
   margin-block-start: calc(var(--icon-size) * -0.5);
   position: absolute;
 

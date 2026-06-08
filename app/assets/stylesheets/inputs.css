@@ -139,7 +139,7 @@
     background-color: var(--color-link);
 
     &::before {
-      transform: translateX(1.2em);
+      inset-inline-start: 1.45em;
     }
   }
 }

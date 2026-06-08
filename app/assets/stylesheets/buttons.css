@@ -41,11 +41,21 @@
       max-inline-size: unset;
     }
 
-    img:not([class]) {
+    img {
       filter: invert(0);
 
       @media (prefers-color-scheme: dark) {
+        html:not([data-theme="light"]) & {
+          filter: invert(1);
+        }
+      }
+
+      html[data-theme="dark"] & {
         filter: invert(1);
+      }
+
+      html[data-theme="light"] & {
+        filter: invert(0);
       }
     }
   }
@@ -92,11 +102,19 @@
 
     img {
       filter: invert(1);
-    }
 
-    @media (prefers-color-scheme: dark) {
-      img {
+      @media (prefers-color-scheme: dark) {
+        html:not([data-theme="light"]) & {
+          filter: invert(0);
+        }
+      }
+
+      html[data-theme="dark"] & {
         filter: invert(0);
+      }
+
+      html[data-theme="light"] & {
+        filter: invert(1);
       }
     }
 
@@ -160,11 +178,21 @@
 :is(.btn--link, .btn--negative, .btn--positive, .btn--reversed) {
   --btn-border-color: var(--color-bg);
 
-  img:not([class]) {
+  img {
     filter: invert(1);
 
     @media (prefers-color-scheme: dark) {
+      html:not([data-theme="light"]) & {
+        filter: invert(0);
+      }
+    }
+
+    html[data-theme="dark"] & {
       filter: invert(0);
+    }
+
+    html[data-theme="light"] & {
+      filter: invert(1);
     }
   }
 }
