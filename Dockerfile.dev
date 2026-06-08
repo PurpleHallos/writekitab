@@ -1,0 +1,16 @@
+FROM ruby:3.4.7-slim
+
+# Install dependencies including dos2unix
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential git libyaml-dev libsqlite3-0 libsqlite3-dev libvips libvips-dev curl pkg-config dos2unix
+
+WORKDIR /rails
+
+# Install bundler and gems
+COPY Gemfile Gemfile.lock .ruby-version ./
+RUN gem install bundler && bundle install
+
+EXPOSE 3007
+
+# Run dos2unix on the bin files to fix Windows CRLF shebangs at runtime
+CMD ["bash", "-c", "dos2unix bin/* && rm -f tmp/pids/server.pid && bin/rails db:prepare && bin/rails server -b 0.0.0.0 -p 3007"]
