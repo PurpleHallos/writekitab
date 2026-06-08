@@ -3,7 +3,7 @@ class Account < ApplicationRecord
 
   LIBRARY_DIRECTIONS = %w[ ltr rtl auto ].freeze
   UI_LANGUAGES = %w[ en ar ].freeze
-  BUYMEACOFFEE_POSITIONS = %w[ Right Left ].freeze
+  BUYMEACOFFEE_POSITIONS = %w[ Right Left Auto ].freeze
 
   validates :library_direction, inclusion: { in: LIBRARY_DIRECTIONS }
   validates :ui_language, inclusion: { in: UI_LANGUAGES }
