@@ -32,3 +32,7 @@ kevin_handbook:
   user: kevin
   book: handbook
   level: editor
+kevin_arabian_nights:
+  user: kevin
+  book: arabian_nights
+  level: reader

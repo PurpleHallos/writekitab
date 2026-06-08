@@ -5,3 +5,9 @@ handbook:
 manual:
   title: Manual
   slug: manual
+
+arabian_nights:
+  title: ألف ليلة وليلة
+  slug: alf-laylah-wa-laylah
+  everyone_access: true
+  published: false

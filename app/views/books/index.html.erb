@@ -10,6 +10,8 @@
       <span>Writebook</span>
     </a>
 
+    <%= render "layouts/theme_toggle" %>
+
     <% if Current.user %>
       <%= link_to users_path, class: "btn" do %>
         <%= image_tag "settings.svg", aria: { hidden: true }, size: 24 %>

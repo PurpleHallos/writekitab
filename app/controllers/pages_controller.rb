@@ -7,7 +7,7 @@ class PagesController < LeafablesController
     end
 
     def default_leaf_params
-      { title: "Untitled" }
+      { title: I18n.t("pages.untitled", default: "Untitled") }
     end
 
     def new_leafable

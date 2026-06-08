@@ -38,6 +38,10 @@
       <span class="for-screen-reader">Enter fullscreen</span>
     </button>
 
+    <%= render "layouts/theme_toggle" %>
+
+    <%= render "layouts/reading_comfort" %>
+
     <%= render "books/searches/search", book: @book %>
 
     <% if @book.editable? %>
@@ -57,9 +61,9 @@
           <%= image_tag @book.cover, alt: "Cover for #{ @book.title }", class: "book__cover margin-block-none center" %>
         <% end %>
       <% else %>
-        <span class="book__cover-wrapper">
+        <span class="book__cover-wrapper" dir="auto">
           <%= image_tag "empty-cover.png", alt: "Book cover", class: "book__cover margin-block-none center" %>
-          <span class="book__title overflow-line-clamp pad txt-align-start txt-tight-lines"" style="--lines: 6" aria-hidden="true"><%= @book.title %></span>
+          <span class="book__title overflow-line-clamp pad txt-align-start txt-tight-lines" style="--lines: 6" aria-hidden="true"><%= @book.title %></span>
         </span>
       <% end %>
 
@@ -74,7 +78,7 @@
   </aside>
 
   <%= arrangement_tag @book, class: "arrangement__container toc__container full-width txt-align-center" do %>
-    <h1 class="flex flex-column txt-tight-lines txt-align-start margin-block-end">
+    <h1 class="flex flex-column txt-tight-lines txt-align-start margin-block-end" dir="auto">
       <strong class="book__title txt-x-large--responsive"><%= @book.title %></strong>
       <span class="txt-large--responsive txt-normal"><%= @book.subtitle %></span>
       <span class="txt-large--responsive txt-normal"><%= @book.author %></span>

@@ -3,6 +3,8 @@ class LeafablesController < ApplicationController
 
   include SetBookLeaf
 
+  before_action :redirect_to_canonical_slug, only: :show
+
   before_action :ensure_editable, except: :show
   before_action :broadcast_being_edited_indicator, only: :update
 
@@ -69,5 +71,13 @@ class LeafablesController < ApplicationController
     def broadcast_being_edited_indicator
       Turbo::StreamsChannel.broadcast_render_later_to @leaf, :being_edited,
         partial: "leaves/being_edited_by", locals: { leaf: @leaf, user: Current.user }
+    end
+
+    def redirect_to_canonical_slug
+      return if request.path.start_with?("/books/")
+
+      if params[:book_slug] != @book.slug || params[:slug] != @leaf.slug
+        redirect_to leafable_slug_url(@leaf, params.permit!.except(:book_id, :book_slug, :id, :slug, :controller, :action).to_h), status: :moved_permanently
+      end
     end
 end

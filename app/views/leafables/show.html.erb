@@ -13,11 +13,11 @@
 <% end %>
 
 <% if @leaf.section? %>
-  <div class="page--section <%= "theme--dark" if @leaf.leafable.theme == "dark" %>">
+  <div class="page--section <%= "theme--dark" if @leaf.leafable.theme == "dark" %>" dir="auto">
     <h1><%= highlight_searched_content @leaf, simple_format(@leaf.section.body), params[:search] %></h1>
   </div>
 <% elsif @leaf.page? %>
-  <div class="page--page" data-controller="scroll-to-highlight">
+  <div class="page--page" dir="auto" data-controller="scroll-to-highlight">
     <%= highlight_searched_content @leaf, sanitize_content(@leaf.page.body.to_html), params[:search] %>
   </div>
 <% elsif @leaf.picture? %>
@@ -33,7 +33,7 @@
       <%= image_tag "default-picture.webp", alt: "No image uploaded", loading: "lazy" %>
     <% end %>
 
-    <figcaption>
+    <figcaption dir="auto">
       <%= simple_format @leaf.picture.caption %>
     </figcaption>
   </figure>

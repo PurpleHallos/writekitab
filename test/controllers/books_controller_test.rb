@@ -87,6 +87,28 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_select "meta[property='og:url'][content='#{book_slug_url(books(:handbook))}']"
   end
 
+  test "show redirects to canonical URL if slug is missing or incorrect" do
+    # missing slug
+    get "/#{books(:handbook).id}"
+    assert_redirected_to book_slug_url(books(:handbook))
+
+    # incorrect slug
+    get "/#{books(:handbook).id}/incorrect-slug"
+    assert_redirected_to book_slug_url(books(:handbook))
+  end
+
+  test "show sets dir=rtl on html element for book with Arabic title" do
+    get book_slug_url(books(:arabian_nights))
+    assert_response :success
+    assert_select "html[dir='rtl']"
+  end
+
+  test "show sets dir=ltr on html element for book with English title" do
+    get book_slug_url(books(:handbook))
+    assert_response :success
+    assert_select "html[dir='ltr']"
+  end
+
   test "show with markdown format returns combined markables" do
     leaves(:welcome_page).leafable.update!(body: "# Welcome Content")
     leaves(:summary_page).leafable.update!(body: "# Summary Content")

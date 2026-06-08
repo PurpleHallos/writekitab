@@ -45,6 +45,26 @@ class LeafablesControllerTest < ActionDispatch::IntegrationTest
     assert_select "link[rel=\"alternate\"][type=\"text/markdown\"][href=\"#{leafable_slug_path(leaves(:welcome_page), format: :md)}\"]"
   end
 
+  test "show redirects to canonical URL if book_slug or slug is missing or incorrect" do
+    leaf = leaves(:welcome_page)
+
+    # missing leaf slug
+    get "/#{leaf.book.id}/#{leaf.book.slug}/#{leaf.id}"
+    assert_redirected_to leafable_slug_url(leaf)
+
+    # missing both slugs
+    get "/#{leaf.book.id}/#{leaf.id}"
+    assert_redirected_to leafable_slug_url(leaf)
+
+    # incorrect book slug
+    get "/#{leaf.book.id}/wrong-book-slug/#{leaf.id}/#{leaf.slug}"
+    assert_redirected_to leafable_slug_url(leaf)
+
+    # incorrect leaf slug
+    get "/#{leaf.book.id}/#{leaf.book.slug}/#{leaf.id}/wrong-leaf-slug"
+    assert_redirected_to leafable_slug_url(leaf)
+  end
+
   test "show with markdown format returns raw markdown content" do
     leaves(:welcome_page).leafable.update!(body: "## Hello\n\nThis is **bold** text.")
 

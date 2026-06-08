@@ -3,6 +3,7 @@ class BooksController < ApplicationController
 
   before_action :ensure_index_is_not_empty, only: :index
   before_action :set_book, only: %i[ show edit update destroy ]
+  before_action :redirect_to_canonical_slug, only: :show
   before_action :set_users, only: %i[ new edit ]
   before_action :ensure_editable, only: %i[ edit update destroy ]
 
@@ -79,5 +80,11 @@ class BooksController < ApplicationController
 
     def remove_cover
       @book.cover.purge
+    end
+
+    def redirect_to_canonical_slug
+      if params[:slug] != @book.slug
+        redirect_to book_slug_url(@book, params.permit!.except(:id, :slug, :controller, :action).to_h), status: :moved_permanently
+      end
     end
 end
