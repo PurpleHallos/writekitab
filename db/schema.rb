@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2026_06_08_153559) do
+ActiveRecord::Schema[8.2].define(version: 2026_06_08_223800) do
   create_table "accesses", force: :cascade do |t|
     t.integer "book_id", null: false
     t.datetime "created_at", null: false
@@ -23,8 +23,13 @@ ActiveRecord::Schema[8.2].define(version: 2026_06_08_153559) do
   end
 
   create_table "accounts", force: :cascade do |t|
+    t.string "buymeacoffee_color", default: "#FFDD00"
+    t.string "buymeacoffee_identifier"
+    t.string "buymeacoffee_message"
+    t.string "buymeacoffee_position", default: "Right"
     t.datetime "created_at", null: false
     t.text "custom_styles"
+    t.boolean "enable_buymeacoffee", default: false, null: false
     t.string "join_code", null: false
     t.string "library_direction", default: "ltr", null: false
     t.string "name", null: false

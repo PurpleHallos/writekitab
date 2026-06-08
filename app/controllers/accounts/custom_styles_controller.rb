@@ -15,6 +15,10 @@ class Accounts::CustomStylesController < ApplicationController
     end
 
     def account_params
-      params.require(:account).permit(:custom_styles, :library_direction, :ui_language)
+      params.require(:account).permit(
+        :custom_styles, :library_direction, :ui_language,
+        :enable_buymeacoffee, :buymeacoffee_identifier, :buymeacoffee_message,
+        :buymeacoffee_color, :buymeacoffee_position
+      )
     end
 end

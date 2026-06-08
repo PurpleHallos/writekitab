@@ -60,6 +60,56 @@
 
     <div class="pad-inline-double margin-inline">
       <div class="flex align-center gap-half center full-width justify-center">
+        <h2 class="margin-none"><%= t('admin.buymeacoffee_title') %></h2>
+      </div>
+      <p class="txt-subtle txt-align-center margin-none-block-start"><%= t('admin.buymeacoffee_hint') %></p>
+
+      <div class="flex flex-column gap margin-block text-align-start justify-center align-center" style="max-width: 480px; margin-inline: auto;">
+        
+        <label class="flex align-center gap cursor-pointer text-align-start full-width">
+          <%= form.check_box :enable_buymeacoffee, style: "width: 20px; height: 20px;" %>
+          <span><%= t('admin.buymeacoffee_enable') %></span>
+        </label>
+
+        <div class="flex flex-column full-width gap-half">
+          <label for="account_buymeacoffee_identifier" class="txt--small text-align-start font-semibold" style="opacity: 0.7"><%= t('admin.buymeacoffee_identifier') %></label>
+          <%= form.text_field :buymeacoffee_identifier, class: "input full-width", placeholder: "e.g. nunocoracao", autocomplete: "off" %>
+        </div>
+
+        <div class="flex flex-column full-width gap-half">
+          <label for="account_buymeacoffee_message" class="txt--small text-align-start font-semibold" style="opacity: 0.7"><%= t('admin.buymeacoffee_message') %></label>
+          <%= form.text_field :buymeacoffee_message, class: "input full-width", placeholder: "e.g. Support my work!", autocomplete: "off" %>
+        </div>
+
+        <div class="flex gap full-width">
+          <div class="flex flex-column flex-item-grow gap-half">
+            <label for="account_buymeacoffee_color" class="txt--small text-align-start font-semibold" style="opacity: 0.7"><%= t('admin.buymeacoffee_color') %></label>
+            <div class="flex gap-half">
+              <%= form.color_field :buymeacoffee_color, style: "width: 44px; height: 44px; padding: 2px; border: 1px solid var(--color-subtle-dark); border-radius: 6px; cursor: pointer; background: transparent;" %>
+              <%= form.text_field :buymeacoffee_color, class: "input flex-item-grow", placeholder: "#FFDD00", style: "text-transform: uppercase;" %>
+            </div>
+          </div>
+
+          <div class="flex flex-column gap-half" style="min-width: 160px;">
+            <label class="txt--small text-align-start font-semibold" style="opacity: 0.7"><%= t('admin.buymeacoffee_position') %></label>
+            <div class="flex gap-half">
+              <% Account::BUYMEACOFFEE_POSITIONS.each do |pos| %>
+                <label class="btn flex-item-grow <%= 'btn--reversed' if @account.buymeacoffee_position == pos %>" style="padding: 0.6em 0.8em; font-size: 0.9em;">
+                  <%= form.radio_button :buymeacoffee_position, pos, id: "account_buymeacoffee_position_#{pos}" %>
+                  <%= pos %>
+                </label>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <hr class="margin-block">
+
+    <div class="pad-inline-double margin-inline">
+      <div class="flex align-center gap-half center full-width justify-center">
         <span class="txt-medium"><%= translation_button(:custom_styles) %></span>
         <h1 class="margin-none"><%= t('admin.custom_css') %></h1>
       </div>

@@ -11,16 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, interactive-widget=resizes-content">
     <meta name="view-transition" content="same-origin">
     <meta name="turbo-cache-control" content="no-cache">
-    <meta name="page-locale" content="<%= page_locale %>">
-    <meta name="page-direction" content="<%= locale_direction %>">
-    <script>
-      document.addEventListener("turbo:load", function() {
-        const locale = document.querySelector('meta[name="page-locale"]')?.content;
-        const dir = document.querySelector('meta[name="page-direction"]')?.content;
-        if (locale) document.documentElement.setAttribute("lang", locale);
-        if (dir) document.documentElement.setAttribute("dir", dir);
-      });
-    </script>
+    <meta name="page-direction" content="<%= page_locale %>-<%= locale_direction %>" data-turbo-track="reload">
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -71,5 +62,19 @@
     </footer>
 
     <%= render "layouts/lightbox" %>
+
+    <% if Current.account&.enable_buymeacoffee? && Current.account&.buymeacoffee_identifier.present? %>
+      <script
+        data-name="BMC-Widget"
+        data-cfasync="false"
+        src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+        data-id="<%= Current.account.buymeacoffee_identifier %>"
+        data-description="Support me on Buy me a coffee!"
+        <% if Current.account.buymeacoffee_message.present? %>data-message="<%= Current.account.buymeacoffee_message %>"<% end %>
+        data-color="<%= Current.account.buymeacoffee_color.presence || '#FFDD00' %>"
+        data-position="<%= Current.account.buymeacoffee_position.presence || 'Right' %>"
+        data-x_margin="18"
+        data-y_margin="18"></script>
+    <% end %>
   </body>
 </html>
