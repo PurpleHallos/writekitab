@@ -48,6 +48,7 @@
   align-self: start;
   grid-area: 1/1;
   justify-self: end;
+  margin: 1.5rem;
 }
 
 .lightbox__image {
