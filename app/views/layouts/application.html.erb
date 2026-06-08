@@ -75,7 +75,12 @@
       <script data-turbo-eval="true">
         (function() {
           function loadBMCWidget() {
-            // Remove existing Buy Me a Coffee widget container and iframe if any
+            // Guard: If widget script is already appended to the body, do nothing
+            if (document.querySelector("script[data-name='BMC-Widget']")) {
+              return;
+            }
+
+            // Remove existing Buy Me a Coffee widget elements if any stale ones exist
             const existingBtn = document.getElementById("bmc-wbtn");
             if (existingBtn) existingBtn.remove();
             
@@ -103,7 +108,14 @@
             document.body.appendChild(script);
           }
 
-          // Run exactly once on initial page load and every subsequent Turbo navigation
+          // Run immediately or as soon as DOM is interactive
+          if (document.readyState === "complete" || document.readyState === "interactive") {
+            loadBMCWidget();
+          } else {
+            document.addEventListener("DOMContentLoaded", loadBMCWidget);
+          }
+
+          // Run on every subsequent Turbo navigation
           document.addEventListener("turbo:load", loadBMCWidget);
         })();
       </script>
