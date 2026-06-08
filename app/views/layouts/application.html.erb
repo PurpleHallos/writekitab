@@ -67,9 +67,9 @@
       <%
         selected_position = Current.account.buymeacoffee_position.presence || "Auto"
         widget_position = if selected_position == "Auto"
-          locale_direction == "rtl" ? "Left" : "Right"
+          locale_direction == "rtl" ? "left" : "right"
         else
-          selected_position
+          selected_position.downcase
         end
       %>
       <script
