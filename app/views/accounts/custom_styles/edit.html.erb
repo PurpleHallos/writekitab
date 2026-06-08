@@ -67,7 +67,7 @@
       <div class="flex flex-column gap margin-block text-align-start justify-center align-center" style="max-width: 480px; margin-inline: auto;">
         
         <label class="flex align-center gap cursor-pointer text-align-start full-width">
-          <%= form.check_box :enable_buymeacoffee, style: "width: 20px; height: 20px;" %>
+          <%= form.check_box :enable_buymeacoffee, style: "width: 20px; height: 20px;", data: { action: "change->form#submit" } %>
           <span><%= t('admin.buymeacoffee_enable') %></span>
         </label>
 
@@ -95,7 +95,7 @@
             <div class="flex gap-half">
               <% Account::BUYMEACOFFEE_POSITIONS.each do |pos| %>
                 <label class="btn flex-item-grow <%= 'btn--reversed' if @account.buymeacoffee_position == pos %>" style="padding: 0.6em 0.8em; font-size: 0.9em;">
-                  <%= form.radio_button :buymeacoffee_position, pos, id: "account_buymeacoffee_position_#{pos}" %>
+                  <%= form.radio_button :buymeacoffee_position, pos, id: "account_buymeacoffee_position_#{pos}", data: { action: "change->form#submit" } %>
                   <%= pos %>
                 </label>
               <% end %>
