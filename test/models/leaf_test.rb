@@ -10,4 +10,9 @@ class LeafTest < ActiveSupport::TestCase
     leaf = Leaf.new(title: "")
     assert_equal "-", leaf.slug
   end
+
+  test "slug is generated from Arabic title" do
+    leaf = Leaf.new(title: "كتاب جديد")
+    assert_equal "كتاب-جديد", leaf.slug
+  end
 end

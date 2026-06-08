@@ -6,6 +6,11 @@ class BookTest < ActiveSupport::TestCase
     assert_equal "hello-world", book.slug
   end
 
+  test "slug is generated from Arabic title" do
+    book = Book.create!(title: "ألف ليلة وليلة")
+    assert_equal "ألف-ليلة-وليلة", book.slug
+  end
+
   test "press a leafable" do
     leaf = books(:manual).press Page.new(body: "Important words"), title: "Introduction"
 

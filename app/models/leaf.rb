@@ -12,6 +12,9 @@ class Leaf < ApplicationRecord
   scope :with_leafables, -> { includes(:leafable) }
 
   def slug
-    title.parameterize.presence || "-"
+    parameterized_title = title.to_s.downcase.strip
+                               .gsub(/[^\p{L}\p{N}]+/u, "-")
+                               .gsub(/\A-+|-+\z/, "")
+    parameterized_title.presence || "-"
   end
 end
