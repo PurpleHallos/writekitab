@@ -1,0 +1,58 @@
+<div class="reading-comfort-wrapper" data-controller="reading-comfort" data-action="click@window->reading-comfort#closeMenu">
+  <button class="btn comfort-toggle" 
+          data-action="click->reading-comfort#toggleMenu" 
+          aria-label="Reading comfort settings"
+          title="Comfort Settings">
+    <!-- Eyeglasses SVG Icon -->
+    <svg style="width: 22px; height: 22px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="6" cy="15" r="4"></circle>
+      <circle cx="18" cy="15" r="4"></circle>
+      <path d="M14 15a2.5 2.5 0 0 0-4 0"></path>
+      <path d="M2.5 13 6 11"></path>
+      <path d="m21.5 13-3.5-2"></path>
+    </svg>
+  </button>
+
+  <div class="comfort-menu" data-reading-comfort-target="menu">
+    <div class="comfort-menu__header">
+      <strong>Reading Options</strong>
+    </div>
+
+    <!-- Font Size Controls -->
+    <div class="comfort-menu__item">
+      <span class="comfort-menu__label">Text Size</span>
+      <div class="comfort-menu__row">
+        <button class="btn btn--comfort" data-action="click->reading-comfort#decreaseFont" title="Decrease text size">
+          <span style="font-size: 0.85em; font-weight: bold;">A-</span>
+        </button>
+        <span class="comfort-menu__value" data-reading-comfort-target="fontSizeLabel">3x</span>
+        <button class="btn btn--comfort" data-action="click->reading-comfort#increaseFont" title="Increase text size">
+          <span style="font-size: 1.15em; font-weight: bold;">A+</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Font Style Toggle -->
+    <div class="comfort-menu__item">
+      <span class="comfort-menu__label">Font Style</span>
+      <button class="btn btn--comfort btn--comfort-toggle" data-action="click->reading-comfort#toggleFontSerif">
+        <span class="font-sans-indicator" style="font-family: system-ui, sans-serif; font-size: 0.9em;">Sans</span>
+        <span class="font-separator">/</span>
+        <span class="font-serif-indicator" style="font-family: ui-serif, serif; font-size: 0.9em; font-weight: bold;">Serif</span>
+      </button>
+    </div>
+
+    <!-- Blue Light Filter -->
+    <div class="comfort-menu__item">
+      <span class="comfort-menu__label">Eye Saver</span>
+      <button class="btn btn--comfort btn--comfort-toggle" data-action="click->reading-comfort#toggleBlueFilter">
+        <!-- Sun/Amber SVG indicator -->
+        <svg style="width: 16px; height: 16px; margin-inline-end: 6px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+          <circle cx="12" cy="12" r="4" fill="currentColor"></circle>
+        </svg>
+        <span>Warm Filter</span>
+      </button>
+    </div>
+  </div>
+</div>

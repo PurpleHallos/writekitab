@@ -1,0 +1,185 @@
+/* Reading Comfort Styling */
+
+.reading-comfort-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Eye Saver Filter */
+html[data-comfort-blue-filter="true"] {
+  filter: sepia(0.25) contrast(0.95) saturate(0.9);
+}
+
+/* Serif font style override for the reading content area only */
+html[data-comfort-font-serif="true"] :is(.page__body, .page--page, .page--section, figcaption, .page--section h1) {
+  font-family: var(--font-serif) !important;
+  line-height: 1.6 !important; /* Slightly increased line height for serif readability */
+}
+
+/* Font size overrides */
+html[data-comfort-size="1"] {
+  --font-medium-responsive: clamp(0.85rem, 2.1cqi, 1.15rem);
+}
+html[data-comfort-size="2"] {
+  --font-medium-responsive: clamp(0.92rem, 2.3cqi, 1.28rem);
+}
+html[data-comfort-size="3"] {
+  /* Default browser styling */
+}
+html[data-comfort-size="4"] {
+  --font-medium-responsive: clamp(1.1rem, 2.75cqi, 1.55rem);
+}
+html[data-comfort-size="5"] {
+  --font-medium-responsive: clamp(1.22rem, 3.0cqi, 1.75rem);
+}
+
+/* Comfort Menu Dropdown */
+.comfort-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  margin-top: 8px;
+  min-inline-size: 220px;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-subtle-dark);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  padding: 16px;
+  z-index: 100;
+  text-align: start;
+}
+
+/* Position comfort menu dropdown depending on layout direction */
+[dir="rtl"] .comfort-menu {
+  left: 0;
+  right: auto;
+}
+[dir="ltr"] .comfort-menu {
+  right: 0;
+  left: auto;
+}
+
+.comfort-menu--open {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: comfortMenuAppear 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes comfortMenuAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.comfort-menu__header {
+  border-bottom: 1px solid var(--color-subtle);
+  padding-bottom: 8px;
+  font-size: 0.9rem;
+  color: var(--color-ink);
+  opacity: 0.8;
+}
+
+.comfort-menu__item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.comfort-menu__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-subtle-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.comfort-menu__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-subtle-light);
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.comfort-menu__value {
+  font-weight: bold;
+  font-size: 0.95rem;
+  min-inline-size: 2.5ch;
+  text-align: center;
+}
+
+.btn--comfort {
+  --btn-background: transparent;
+  --btn-border-color: transparent;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-subtle);
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: var(--color-ink);
+  font-size: 0.9rem;
+}
+
+.btn--comfort:hover {
+  background-color: var(--color-subtle-light);
+}
+
+.comfort-menu__row .btn--comfort {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 32px;
+  padding: 0;
+}
+
+.btn--comfort-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-block: 8px;
+}
+
+/* Active State for Toggle Buttons */
+.btn--comfort.btn--comfort-active {
+  background-color: var(--color-link);
+  color: var(--color-ink-reversed);
+  border-color: var(--color-link);
+}
+
+.btn--comfort.btn--comfort-active svg {
+  color: var(--color-ink-reversed);
+}
+
+.font-sans-indicator, .font-serif-indicator {
+  transition: opacity 0.15s ease;
+}
+
+.btn--comfort-toggle .font-serif-indicator {
+  opacity: 0.5;
+}
+
+.btn--comfort-toggle.btn--comfort-active .font-serif-indicator {
+  opacity: 1;
+  font-weight: bold;
+}
+
+.btn--comfort-toggle.btn--comfort-active .font-sans-indicator {
+  opacity: 0.5;
+  font-weight: normal;
+}
+
+.font-separator {
+  margin-inline: 8px;
+  opacity: 0.3;
+}
