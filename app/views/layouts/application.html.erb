@@ -11,7 +11,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, interactive-widget=resizes-content">
     <meta name="view-transition" content="same-origin">
     <meta name="turbo-cache-control" content="no-cache">
-    <meta name="page-direction" content="<%= page_locale %>-<%= locale_direction %>" data-turbo-track="reload">
+    <meta name="page-locale" content="<%= page_locale %>">
+    <meta name="page-direction" content="<%= locale_direction %>">
+    <script>
+      document.addEventListener("turbo:load", function() {
+        const locale = document.querySelector('meta[name="page-locale"]')?.content;
+        const dir = document.querySelector('meta[name="page-direction"]')?.content;
+        if (locale) document.documentElement.setAttribute("lang", locale);
+        if (dir) document.documentElement.setAttribute("dir", dir);
+      });
+    </script>
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
