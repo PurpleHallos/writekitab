@@ -2,7 +2,8 @@ class User < ApplicationRecord
   include Role, Transferable
 
   has_many :sessions, dependent: :destroy
-  has_secure_password validations: false
+  has_secure_password
+  validates :password, length: { minimum: 8 }, allow_nil: true
 
   has_many :accesses, dependent: :destroy
   has_many :books, through: :accesses

@@ -91,7 +91,7 @@
       data-cfasync="false"
       data-id="<%= Current.account.buymeacoffee_identifier %>"
       data-description="Support me on Buy me a coffee!"
-      <%= "data-message=\"#{Current.account.buymeacoffee_message}\"".html_safe if Current.account.buymeacoffee_message.present? %>
+      <%= "data-message=\"#{ERB::Util.html_escape(Current.account.buymeacoffee_message)}\"".html_safe if Current.account.buymeacoffee_message.present? %>
       data-color="<%= Current.account.buymeacoffee_color.presence || '#FFDD00' %>"
       data-position="<%= widget_position %>"
       data-x_margin="18"
