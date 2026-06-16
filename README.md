@@ -1,16 +1,4 @@
 
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown link keeping keys at the bottom of the page for clean reading.
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an elegant GFM feature.
--->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -144,16 +132,6 @@ Hallos - [hallospurpleyard@gmail.com](mailto:hallospurpleyard@gmail.com)
 * [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[contributors-shield]: https://img.shields.io/github/contributors/PurpleHallos/writekitab.svg?style=for-the-badge
-[contributors-url]: https://github.com/PurpleHallos/writekitab/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/PurpleHallos/writekitab.svg?style=for-the-badge
-[forks-url]: https://github.com/PurpleHallos/writekitab/network/members
-[stars-shield]: https://img.shields.io/github/stars/PurpleHallos/writekitab.svg?style=for-the-badge
-[stars-url]: https://github.com/PurpleHallos/writekitab/stargazers
-[issues-shield]: https://img.shields.io/github/issues/PurpleHallos/writekitab.svg?style=for-the-badge
-[issues-url]: https://github.com/PurpleHallos/writekitab/issues
-[license-shield]: https://img.shields.io/github/license/PurpleHallos/writekitab.svg?style=for-the-badge
-[license-url]: https://github.com/PurpleHallos/writekitab/blob/main/MIT-LICENSE
 [Ruby-badge]: https://img.shields.io/badge/Ruby-CC342D?style=for-the-badge&logo=ruby&logoColor=white
 [Ruby-url]: https://www.ruby-lang.org/
 [Rails-badge]: https://img.shields.io/badge/rails-%23CC0000.svg?style=for-the-badge&logo=ruby-on-rails&logoColor=white
