@@ -17,7 +17,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/PurpleHallos/writekitab">
-    <img src="app/assets/images/WriteKitab-logo.svg" alt="Logo" width="80" height="80">
+    <img src="app/assets/images/WriteKitab-logo.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">WriteKitab</h3>
