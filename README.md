@@ -118,7 +118,7 @@ Contributions are welcome.
 <!-- LICENSE -->
 ## License
 
-MIT License. See `LICENSE` or `MIT-LICENSE` for details.
+MIT License. See `MIT-LICENSE` for details.
 
 <!-- CONTACT -->
 ## Contact
