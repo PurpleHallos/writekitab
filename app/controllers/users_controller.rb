@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
 
   def index
-    @users = User.active
+    redirect_to edit_account_custom_styles_url(tab: "users")
   end
 
   def new

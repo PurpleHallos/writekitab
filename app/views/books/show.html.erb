@@ -107,6 +107,7 @@
       <% if @book.editable? %>
         <div class="toc__blank-slate align-center justify-start">
           <%= image_tag "blank-slate-arrows.svg", aria: { hidden: true }, size: 60, class: "colorize--black" %>
+          <span class="flex align-center gap-half"><span>🇸🇦</span> <span>اختر نوع الصفحة للبدء</span></span>
           <span class="flex align-center gap-half"><span>🇺🇸</span> <span>Pick a page type to get started</span></span>
           <span class="flex align-center gap-half"><span>🇪🇸</span> <span>Elige un tipo de página para comenzar</span></span>
           <span class="flex align-center gap-half"><span>🇫🇷</span> <span>Choisissez un type de page pour commencer</span></span>
@@ -130,9 +131,9 @@
 
 <% content_for :footer do %>
   <nav class="book__nav flex align-center justify-center">
-    <a href="https://once.com/writebook" class="product__wordmark btn btn--plain txt-medium" target="_blank">
-      <%= image_tag "writebook-icon.svg", aria: { hidden: true }, size: 24 %>
-      <span>Made with Writebook</span>
+    <a href="/" class="product__wordmark btn btn--plain txt-medium">
+      <%= image_tag "WriteKitab-logo.svg", aria: { hidden: true }, size: 24 %>
+      <span>Made with WriteKitab</span>
     </a>
   </nav>
 <% end %>

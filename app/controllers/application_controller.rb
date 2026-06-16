@@ -22,7 +22,9 @@ class ApplicationController < ActionController::Base
     end
 
     def find_book_from_params
-      id = params[:book_id] || (controller_name == "books" && params[:id])
-      Book.find_by(id: id) if id
+      @_book_from_params ||= begin
+        id = params[:book_id] || (controller_name == "books" && params[:id])
+        Book.find_by(id: id) if id
+      end
     end
 end

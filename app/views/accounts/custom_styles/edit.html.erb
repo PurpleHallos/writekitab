@@ -1,4 +1,4 @@
-<% content_for(:title) { "Custom styles" } %>
+<% content_for(:title) { "Settings - WriteKitab" } %>
 
 <% content_for :header do %>
   <nav>
@@ -10,125 +10,255 @@
     <div class="breadcrumbs">
       <%= render "books/index_link" %>
       <span class="flex-item-no-shrink">▸</span>
-      <%= image_tag "art.svg", aria: { label: "Custom styles" }, size: 19, class: "colorize--black", alt: "Custom styles" %>
+      <span class="breadcrumb-current"><%= t('admin.settings_title', default: "Settings") %></span>
     </div>
   </nav>
 <% end %>
 
-<div class="center pad txt-align-center flex flex-column">
-  <%= form_with model: @account, url: account_custom_styles_url, class: "flex flex-column gap",
-      data: { controller: "form", action: "keydown.ctrl+enter->form#submit keydown.meta+enter->form#submit" } do |form| %>
-    <div class="pad-inline-double margin-inline">
-      <div class="flex align-center gap-half center full-width justify-center">
-        <h2 class="margin-none"><%= t('admin.library_direction') %></h2>
+<div class="settings-page-wrapper">
+  <%= form_with model: @account, url: account_custom_styles_url, class: "settings-form-container",
+      data: { controller: "settings-tabs form", action: "keydown.ctrl+enter->form#submit keydown.meta+enter->form#submit" } do |form| %>
+
+    <%# ── Left Sidebar Navigation ── %>
+    <div class="settings-sidebar">
+      <div class="settings-sidebar-header">
+        <h2 class="settings-sidebar-title"><%= t('admin.settings_title', default: "Settings") %></h2>
       </div>
-      <p class="txt-subtle txt-align-center margin-none-block-start"><%= t('admin.library_direction_hint') %></p>
-
-      <div class="flex gap justify-center margin-block">
-        <% Account::LIBRARY_DIRECTIONS.each do |dir| %>
-          <label class="btn <%= 'btn--reversed' if @account.library_direction == dir %>">
-            <%= form.radio_button :library_direction, dir,
-                id: "account_library_direction_#{dir}",
-                data: { action: "change->form#submit" } %>
-            <%= dir.upcase %>
-          </label>
-        <% end %>
-      </div>
-    </div>
-
-    <hr class="margin-block">
-
-    <div class="pad-inline-double margin-inline">
-      <div class="flex align-center gap-half center full-width justify-center">
-        <h2 class="margin-none"><%= t('admin.ui_language') %></h2>
-      </div>
-      <p class="txt-subtle txt-align-center margin-none-block-start"><%= t('admin.ui_language_hint') %></p>
-
-      <div class="flex gap justify-center margin-block">
-        <% Account::UI_LANGUAGES.each do |lang| %>
-          <label class="btn <%= 'btn--reversed' if @account.ui_language == lang %>">
-            <%= form.radio_button :ui_language, lang,
-                id: "account_ui_language_#{lang}",
-                data: { action: "change->form#submit" } %>
-            <%= t("admin.language_#{lang}") %>
-          </label>
-        <% end %>
-      </div>
-    </div>
-
-    <hr class="margin-block">
-
-    <div class="pad-inline-double margin-inline">
-      <div class="flex align-center gap-half center full-width justify-center">
-        <h2 class="margin-none"><%= t('admin.buymeacoffee_title') %></h2>
-      </div>
-      <p class="txt-subtle txt-align-center margin-none-block-start"><%= t('admin.buymeacoffee_hint') %></p>
-
-      <div class="flex flex-column gap margin-block text-align-start justify-center align-center" style="max-width: 480px; margin-inline: auto;">
-        
-        <label class="flex align-center gap cursor-pointer text-align-start full-width">
-          <%= form.check_box :enable_buymeacoffee, style: "width: 20px; height: 20px;", data: { action: "change->form#submit" } %>
-          <span><%= t('admin.buymeacoffee_enable') %></span>
-        </label>
-
-        <div class="flex flex-column full-width gap-half">
-          <label for="account_buymeacoffee_identifier" class="txt--small text-align-start font-semibold" style="opacity: 0.7"><%= t('admin.buymeacoffee_identifier') %></label>
-          <%= form.text_field :buymeacoffee_identifier, class: "input full-width", placeholder: "e.g. nunocoracao", autocomplete: "off" %>
-        </div>
-
-        <div class="flex flex-column full-width gap-half">
-          <label for="account_buymeacoffee_message" class="txt--small text-align-start font-semibold" style="opacity: 0.7"><%= t('admin.buymeacoffee_message') %></label>
-          <%= form.text_field :buymeacoffee_message, class: "input full-width", placeholder: "e.g. Support my work!", autocomplete: "off" %>
-        </div>
-
-        <div class="flex gap full-width">
-          <div class="flex flex-column flex-item-grow gap-half">
-            <label for="account_buymeacoffee_color" class="txt--small text-align-start font-semibold" style="opacity: 0.7"><%= t('admin.buymeacoffee_color') %></label>
-            <div class="flex gap-half">
-              <%= form.color_field :buymeacoffee_color, style: "width: 44px; height: 44px; padding: 2px; border: 1px solid var(--color-subtle-dark); border-radius: 6px; cursor: pointer; background: transparent;" %>
-              <%= form.text_field :buymeacoffee_color, class: "input flex-item-grow", placeholder: "#FFDD00", style: "text-transform: uppercase;" %>
+      
+      <ul class="settings-sidebar-menu">
+        <li>
+          <button type="button" class="settings-tab-btn" data-settings-tabs-target="tab" data-tab-name="general" data-action="click->settings-tabs#switch">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="tab-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <div class="tab-btn-text">
+              <span class="tab-label"><%= t('admin.general_tab', default: "General") %></span>
+              <span class="tab-sublabel"><%= t('admin.general_sublabel', default: "Language & direction") %></span>
             </div>
-          </div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="settings-tab-btn" data-settings-tabs-target="tab" data-tab-name="users" data-action="click->settings-tabs#switch">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="tab-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <div class="tab-btn-text">
+              <span class="tab-label"><%= t('admin.users_tab', default: "Users & Roles") %></span>
+              <span class="tab-sublabel"><%= t('admin.users_sublabel', default: "Manage members & invites") %></span>
+            </div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="settings-tab-btn" data-settings-tabs-target="tab" data-tab-name="coffee" data-action="click->settings-tabs#switch">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="tab-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+            <div class="tab-btn-text">
+              <span class="tab-label"><%= t('admin.buymeacoffee_title', default: "Buy Me a Coffee") %></span>
+              <span class="tab-sublabel"><%= t('admin.coffee_sublabel', default: "Support widget settings") %></span>
+            </div>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="settings-tab-btn" data-settings-tabs-target="tab" data-tab-name="custom_css" data-action="click->settings-tabs#switch">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="tab-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122l-3.003-3.004a.25.25 0 010-.353l3.003-3.003m4.939 6.007l3.003-3.004a.25.25 0 000-.353l-3.003-3.003M14 4h-.008v.008H14V4zm-4 0h-.008v.008H10V4z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2" />
+            </svg>
+            <div class="tab-btn-text">
+              <span class="tab-label"><%= t('admin.custom_css', default: "Custom CSS") %></span>
+              <span class="tab-sublabel"><%= t('admin.css_sublabel', default: "Theme customization") %></span>
+            </div>
+          </button>
+        </li>
+      </ul>
+    </div>
 
-          <div class="flex flex-column gap-half" style="min-width: 220px;">
-            <label class="txt--small text-align-start font-semibold" style="opacity: 0.7"><%= t('admin.buymeacoffee_position') %></label>
-            <div class="flex gap-half">
-              <% Account::BUYMEACOFFEE_POSITIONS.each do |pos| %>
-                <label class="btn flex-item-grow <%= 'btn--reversed' if @account.buymeacoffee_position == pos %>" style="padding: 0.6em 0.8em; font-size: 0.9em;">
-                  <%= form.radio_button :buymeacoffee_position, pos, id: "account_buymeacoffee_position_#{pos}", data: { action: "change->form#submit" } %>
-                  <%= pos %>
+    <%# ── Right Content Panes ── %>
+    <div class="settings-content">
+
+      <%# ── Pane: General ── %>
+      <div class="settings-pane hidden" data-settings-tabs-target="pane" data-pane-name="general">
+        <div class="pane-header">
+          <h3 class="pane-title"><%= t('admin.general_tab', default: "General Settings") %></h3>
+          <p class="pane-description"><%= t('admin.general_description', default: "Manage your library language interface and reading direction.") %></p>
+        </div>
+
+        <div class="pane-body">
+          <%# Language Card Options %>
+          <div class="settings-section">
+            <h4 class="section-title"><%= t('admin.ui_language') %></h4>
+            <div class="language-cards-grid">
+              <% Account::UI_LANGUAGES.each do |lang| %>
+                <label class="card-option <%= 'selected' if @account.ui_language == lang %>">
+                  <%= form.radio_button :ui_language, lang,
+                      id: "account_ui_language_#{lang}",
+                      class: "card-radio-input",
+                      data: { action: "change->form#submit" } %>
+                  <div class="card-option-content">
+                    <span class="flag-emoji"><%= { "en" => "🇺🇸", "es" => "🇪🇸", "fr" => "🇫🇷", "hi" => "🇮🇳", "de" => "🇩🇪", "pt" => "🇧🇷" }[lang] || "🌐" %></span>
+                    <span class="card-option-label"><%= t("admin.language_#{lang}") %></span>
+                  </div>
                 </label>
               <% end %>
             </div>
           </div>
+
+          <hr class="pane-divider">
+
+          <%# Library Direction Options %>
+          <div class="settings-section">
+            <h4 class="section-title"><%= t('admin.library_direction') %></h4>
+            <div class="direction-cards-grid">
+              <% Account::LIBRARY_DIRECTIONS.each do |dir| %>
+                <label class="card-option <%= 'selected' if @account.library_direction == dir %>">
+                  <%= form.radio_button :library_direction, dir,
+                      id: "account_library_direction_#{dir}",
+                      class: "card-radio-input",
+                      data: { action: "change->form#submit" } %>
+                  <div class="card-option-content">
+                    <span class="direction-indicator"><%= dir.upcase %></span>
+                    <span class="card-option-label"><%= dir == 'ltr' ? t('admin.ltr_desc', default: "Left to Right") : t('admin.rtl_desc', default: "Right to Left") %></span>
+                  </div>
+                </label>
+              <% end %>
+            </div>
+            <p class="direction-hint-text"><%= t('admin.library_direction_hint') %></p>
+          </div>
+        </div>
+      </div>
+      
+      <%# ── Pane: Users ── %>
+      <div class="settings-pane hidden" data-settings-tabs-target="pane" data-pane-name="users">
+        <div class="pane-header">
+          <h3 class="pane-title"><%= t('admin.users_tab', default: "Users & Roles") %></h3>
+          <p class="pane-description"><%= t('admin.users_description', default: "Manage team members, update roles, and invite new people to WriteKitab.") %></p>
         </div>
 
+        <div class="pane-body">
+          <div class="settings-section">
+            <h4 class="section-title">Invite New Users</h4>
+            <div class="invite-container-card">
+              <%= render "users/invite" %>
+            </div>
+          </div>
+
+          <hr class="pane-divider">
+
+          <div class="settings-section">
+            <h4 class="section-title">Active Members</h4>
+            <div class="users-list-card">
+              <%= render partial: "users/user", collection: @users %>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <hr class="margin-block">
+      <%# ── Pane: Buy Me a Coffee ── %>
+      <div class="settings-pane hidden" data-settings-tabs-target="pane" data-pane-name="coffee">
+        <div class="pane-header">
+          <div class="header-with-toggle">
+            <div>
+              <h3 class="pane-title"><%= t('admin.buymeacoffee_title') %></h3>
+              <p class="pane-description"><%= t('admin.buymeacoffee_description', default: "Enable a widget that allows readers to support your work directly.") %></p>
+            </div>
+            <div class="switch-container">
+              <label class="switch">
+                <%= form.check_box :enable_buymeacoffee, class: "switch-input", data: { action: "change->form#submit" } %>
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
 
-    <div class="pad-inline-double margin-inline">
-      <div class="flex align-center gap-half center full-width justify-center">
-        <span class="txt-medium"><%= translation_button(:custom_styles) %></span>
-        <h1 class="margin-none"><%= t('admin.custom_css') %></h1>
+        <div class="pane-body">
+          <div class="settings-section">
+            <div class="fields-row">
+              <div class="input-group">
+                <label for="account_buymeacoffee_identifier" class="field-label"><%= t('admin.buymeacoffee_identifier') %></label>
+                <%= form.text_field :buymeacoffee_identifier, class: "modern-input", placeholder: "e.g. nunocoracao", autocomplete: "off" %>
+              </div>
+
+              <div class="input-group">
+                <label for="account_buymeacoffee_message" class="field-label"><%= t('admin.buymeacoffee_message') %></label>
+                <%= form.text_field :buymeacoffee_message, class: "modern-input", placeholder: "e.g. Support my work!", autocomplete: "off" %>
+              </div>
+            </div>
+
+            <hr class="pane-divider">
+
+            <%# Accent Colors Preset + Selector %>
+            <div class="input-group">
+              <label class="field-label"><%= t('admin.buymeacoffee_color') %></label>
+              <div class="color-presets-container">
+                <div class="color-presets">
+                  <% [ "#FFDD00", "#FF813F", "#9B5DE5", "#00BBF9", "#F15BB5", "#00F5D4" ].each do |color_hex| %>
+                    <button type="button" class="color-preset-dot" style="background: <%= color_hex %>;" 
+                            onclick="const c = document.getElementById('account_buymeacoffee_color'); const t = document.getElementById('account_buymeacoffee_color_text'); c.value = '<%= color_hex %>'; t.value = '<%= color_hex %>'; c.dispatchEvent(new Event('change', { bubbles: true }));"></button>
+                  <% end %>
+                </div>
+                
+                <div class="custom-color-picker-box">
+                  <%= form.text_field :buymeacoffee_color, id: "account_buymeacoffee_color_text", class: "modern-input hex-input", placeholder: "#FFDD00", oninput: "document.getElementById('account_buymeacoffee_color').value = this.value" %>
+                  <%= form.color_field :buymeacoffee_color, id: "account_buymeacoffee_color", class: "native-color-selector", oninput: "document.getElementById('account_buymeacoffee_color_text').value = this.value" %>
+                </div>
+              </div>
+            </div>
+
+            <hr class="pane-divider">
+
+            <%# Position Cards %>
+            <div class="input-group">
+              <label class="field-label"><%= t('admin.buymeacoffee_position') %></label>
+              <div class="position-cards-grid">
+                <% Account::BUYMEACOFFEE_POSITIONS.each do |pos| %>
+                  <label class="card-option <%= 'selected' if @account.buymeacoffee_position == pos %>">
+                    <%= form.radio_button :buymeacoffee_position, pos,
+                        id: "account_buymeacoffee_position_#{pos}",
+                        class: "card-radio-input",
+                        data: { action: "change->form#submit" } %>
+                    <div class="card-option-content">
+                      <span class="position-label"><%= pos %></span>
+                    </div>
+                  </label>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <p class="flex flex-wrap align-center justify-center gap margin-none-block-start" style="--column-gap: 0.5ch; --row-gap: 0">
-        <span><%= t('admin.custom_css_hint') %></span>
-        <%= image_tag "alert.svg", class: "flex-inline colorize--black", size: 16, aria: { hidden: "true" } %>
-        <span><%= t('admin.custom_css_warning') %></span>
-      </p>
+
+      <%# ── Pane: Custom CSS ── %>
+      <div class="settings-pane hidden" data-settings-tabs-target="pane" data-pane-name="custom_css">
+        <div class="pane-header">
+          <h3 class="pane-title"><%= t('admin.custom_css') %></h3>
+          <p class="pane-description"><%= t('admin.custom_css_hint') %></p>
+          <div class="alert-box">
+            <%= image_tag "alert.svg", class: "alert-icon colorize--black", size: 16, aria: { hidden: "true" } %>
+            <span><%= t('admin.custom_css_warning') %></span>
+          </div>
+        </div>
+
+        <div class="pane-body">
+          <div class="editor-container">
+            <div class="editor-header">
+              <span class="editor-filename"><%= translation_button(:custom_styles) %> custom.css</span>
+            </div>
+            <%= form.text_area :custom_styles, class: "modern-textarea-code", placeholder: "/* Add custom CSS rules here... */",
+                  autocomplete: "off", spellcheck: "false", autocorrect: "off", autocapitalize: "off",
+                  rows: 14, required: false %>
+          </div>
+
+          <div class="action-footer">
+            <%= form.button class: "btn btn--reversed btn-save-settings", type: "submit" do %>
+              <%= image_tag "check.svg", aria: { hidden: "true" }, size: 18, class: "btn-icon" %>
+              <span><%= t('admin.save_changes', default: "Save Changes") %></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
     </div>
-
-    <label class="flex align-start gap flex-item-grow">
-      <%= form.text_area :custom_styles, class: "input input--code txt--small", placeholder: "Add CSS styles…",
-            autocomplete: "off", spellcheck: "false", autocorrect: "off", autocapitalize: "off",
-            rows: 16, required: false %>
-    </label>
-
-    <%= form.button class: "btn btn--reversed center txt-large", type: "submit" do %>
-      <%= image_tag "check.svg", aria: { hidden: "true" }, size: 20 %>
-      <span class="for-screen-reader"><%= t('admin.save_changes') %></span>
-    <% end %>
   <% end %>
 </div>

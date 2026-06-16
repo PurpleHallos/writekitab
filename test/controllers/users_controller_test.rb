@@ -5,6 +5,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @join_code = accounts(:signal).join_code
   end
 
+  test "should redirect index to settings users tab" do
+    sign_in :david
+    get users_url
+    assert_redirected_to edit_account_custom_styles_url(tab: "users")
+  end
+
   test "new" do
     get join_url(@join_code)
     assert_response :success

@@ -2,6 +2,7 @@ class Accounts::CustomStylesController < ApplicationController
   before_action :ensure_can_administer, :set_account
 
   def edit
+    @users = User.active
   end
 
   def update
